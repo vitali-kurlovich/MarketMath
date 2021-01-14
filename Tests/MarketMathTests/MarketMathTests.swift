@@ -1,5 +1,5 @@
-import XCTest
 @testable import MarketMath
+import XCTest
 
 final class MarketMathTests: XCTestCase {
     func testExample() {
