@@ -44,6 +44,7 @@ class MarketPriceFormatter: Formatter {
         return string(for: double)
     }
 
+    @available(iOS 3.2, *)
     override func attributedString(for obj: Any?, withDefaultAttributes attrs: [NSAttributedString.Key: Any]? = nil) -> NSAttributedString? {
         let fractionSymbol = numberOfFractionSymbol
 
@@ -59,6 +60,7 @@ class MarketPriceFormatter: Formatter {
         return numberFormatter.attributedString(for: obj, withDefaultAttributes: attrs)
     }
 
+    @available(iOS 3.2, *)
     func attributedString<T: BinaryInteger>(for value: T?, withDefaultAttributes attrs: [NSAttributedString.Key: Any]? = nil) -> NSAttributedString? {
         guard let value = value else {
             return NSAttributedString(string: nilSymbol, attributes: attrs)
@@ -157,6 +159,7 @@ extension MarketPriceFormatter {
 }
 
 /// Attributed string
+@available(iOS 3.2, *)
 extension MarketPriceFormatter {
     var textAttributesForNegativeValues: [String: Any]? {
         get {
