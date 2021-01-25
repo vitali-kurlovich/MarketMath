@@ -21,6 +21,7 @@ class MarketPriceFormatter: Formatter {
     private lazy var numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.formattingContext = self.formattingContext
+        formatter.numberStyle = .decimal
         return formatter
     }()
 
@@ -44,7 +45,7 @@ class MarketPriceFormatter: Formatter {
 
         return string(for: double)
     }
-
+#if !os(Linux)
     override func attributedString(for obj: Any, withDefaultAttributes attrs: [NSAttributedString.Key : Any]? = nil) -> NSAttributedString? {
         let fractionSymbol = numberOfFractionSymbol
 
@@ -70,6 +71,7 @@ class MarketPriceFormatter: Formatter {
 
         return attributedString(for: double, withDefaultAttributes: attrs)
     }
+#endif
 }
 
 internal
@@ -159,7 +161,7 @@ extension MarketPriceFormatter {
 }
 
 /// Attributed string
-@available(iOS 3.2, *)
+#if !os(Linux)
 extension MarketPriceFormatter {
     var textAttributesForNegativeValues: [String: Any]? {
         get {
@@ -206,3 +208,4 @@ extension MarketPriceFormatter {
         }
     }
 }
+#endif
