@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreFoundation
 
 class MarketPriceFormatter: Formatter {
     var pipValue: Double = 1
@@ -44,8 +45,7 @@ class MarketPriceFormatter: Formatter {
         return string(for: double)
     }
 
-    @available(iOS 3.2, *)
-    override func attributedString(for obj: Any?, withDefaultAttributes attrs: [NSAttributedString.Key: Any]? = nil) -> NSAttributedString? {
+    override func attributedString(for obj: Any, withDefaultAttributes attrs: [NSAttributedString.Key : Any]? = nil) -> NSAttributedString? {
         let fractionSymbol = numberOfFractionSymbol
 
         numberFormatter.allowsFloats = fractionSymbol > 0
@@ -53,14 +53,14 @@ class MarketPriceFormatter: Formatter {
         numberFormatter.minimumFractionDigits = fractionSymbol
         numberFormatter.maximumFractionDigits = fractionSymbol
 
-        guard let obj = obj else {
-            return NSAttributedString(string: nilSymbol, attributes: attrs)
-        }
+//        guard let obj = obj else {
+//            return NSAttributedString(string: nilSymbol, attributes: attrs)
+//        }
 
         return numberFormatter.attributedString(for: obj, withDefaultAttributes: attrs)
     }
 
-    @available(iOS 3.2, *)
+    
     func attributedString<T: BinaryInteger>(for value: T?, withDefaultAttributes attrs: [NSAttributedString.Key: Any]? = nil) -> NSAttributedString? {
         guard let value = value else {
             return NSAttributedString(string: nilSymbol, attributes: attrs)
