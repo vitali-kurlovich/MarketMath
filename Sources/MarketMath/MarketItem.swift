@@ -7,10 +7,17 @@
 
 import Foundation
 
-protocol MarketItem {}
+protocol MarketItem {
+    var date: Date { get }
+}
 
-protocol MarketValue: Numeric, Comparable {}
+protocol MarketItemSequence: Sequence where Self.Element: MarketItem {}
 
-protocol MarketPriceValue: MarketValue {}
+protocol MarketItemCandle {
+    associatedtype Item: MarketItem
 
-protocol MarketVolumeValue: MarketValue {}
+    var open: Item { get }
+    var close: Item { get }
+    var low: Item { get }
+    var hight: Item { get }
+}

@@ -5,8 +5,8 @@
 //  Created by Vitali Kurlovich on 30.12.20.
 //
 
-import Foundation
 import CoreFoundation
+import Foundation
 
 class MarketPriceFormatter: Formatter {
     var pipValue: Double = 1
@@ -45,33 +45,29 @@ class MarketPriceFormatter: Formatter {
 
         return string(for: double)
     }
-#if !os(Linux)
-    override func attributedString(for obj: Any, withDefaultAttributes attrs: [NSAttributedString.Key : Any]? = nil) -> NSAttributedString? {
-        let fractionSymbol = numberOfFractionSymbol
 
-        numberFormatter.allowsFloats = fractionSymbol > 0
+    #if !os(Linux)
+        override func attributedString(for obj: Any, withDefaultAttributes attrs: [NSAttributedString.Key: Any]? = nil) -> NSAttributedString? {
+            let fractionSymbol = numberOfFractionSymbol
 
-        numberFormatter.minimumFractionDigits = fractionSymbol
-        numberFormatter.maximumFractionDigits = fractionSymbol
+            numberFormatter.allowsFloats = fractionSymbol > 0
 
-//        guard let obj = obj else {
-//            return NSAttributedString(string: nilSymbol, attributes: attrs)
-//        }
+            numberFormatter.minimumFractionDigits = fractionSymbol
+            numberFormatter.maximumFractionDigits = fractionSymbol
 
-        return numberFormatter.attributedString(for: obj, withDefaultAttributes: attrs)
-    }
-
-    
-    func attributedString<T: BinaryInteger>(for value: T?, withDefaultAttributes attrs: [NSAttributedString.Key: Any]? = nil) -> NSAttributedString? {
-        guard let value = value else {
-            return NSAttributedString(string: nilSymbol, attributes: attrs)
+            return numberFormatter.attributedString(for: obj, withDefaultAttributes: attrs)
         }
 
-        let double = Double(value) * pipValue
+        func attributedString<T: BinaryInteger>(for value: T?, withDefaultAttributes attrs: [NSAttributedString.Key: Any]? = nil) -> NSAttributedString? {
+            guard let value = value else {
+                return NSAttributedString(string: nilSymbol, attributes: attrs)
+            }
 
-        return attributedString(for: double, withDefaultAttributes: attrs)
-    }
-#endif
+            let double = Double(value) * pipValue
+
+            return attributedString(for: double, withDefaultAttributes: attrs)
+        }
+    #endif
 }
 
 internal
@@ -162,50 +158,50 @@ extension MarketPriceFormatter {
 
 /// Attributed string
 #if !os(Linux)
-extension MarketPriceFormatter {
-    var textAttributesForNegativeValues: [String: Any]? {
-        get {
-            numberFormatter.textAttributesForNegativeValues
+    extension MarketPriceFormatter {
+        var textAttributesForNegativeValues: [String: Any]? {
+            get {
+                numberFormatter.textAttributesForNegativeValues
+            }
+            set {
+                numberFormatter.textAttributesForNegativeValues = newValue
+            }
         }
-        set {
-            numberFormatter.textAttributesForNegativeValues = newValue
-        }
-    }
 
-    var textAttributesForPositiveValues: [String: Any]? {
-        get {
-            numberFormatter.textAttributesForPositiveValues
+        var textAttributesForPositiveValues: [String: Any]? {
+            get {
+                numberFormatter.textAttributesForPositiveValues
+            }
+            set {
+                numberFormatter.textAttributesForPositiveValues = newValue
+            }
         }
-        set {
-            numberFormatter.textAttributesForPositiveValues = newValue
-        }
-    }
 
-    var textAttributesForNil: [String: Any]? {
-        get {
-            numberFormatter.textAttributesForNil
+        var textAttributesForNil: [String: Any]? {
+            get {
+                numberFormatter.textAttributesForNil
+            }
+            set {
+                numberFormatter.textAttributesForNil = newValue
+            }
         }
-        set {
-            numberFormatter.textAttributesForNil = newValue
-        }
-    }
 
-    var textAttributesForZero: [String: Any]? {
-        get {
-            numberFormatter.textAttributesForZero
+        var textAttributesForZero: [String: Any]? {
+            get {
+                numberFormatter.textAttributesForZero
+            }
+            set {
+                numberFormatter.textAttributesForZero = newValue
+            }
         }
-        set {
-            numberFormatter.textAttributesForZero = newValue
-        }
-    }
 
-    var textAttributesForNotANumber: [String: Any]? {
-        get {
-            numberFormatter.textAttributesForNotANumber
-        }
-        set {
-            numberFormatter.textAttributesForNotANumber = newValue
+        var textAttributesForNotANumber: [String: Any]? {
+            get {
+                numberFormatter.textAttributesForNotANumber
+            }
+            set {
+                numberFormatter.textAttributesForNotANumber = newValue
+            }
         }
     }
-}
 #endif
